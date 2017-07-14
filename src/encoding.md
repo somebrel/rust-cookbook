@@ -8,6 +8,7 @@
 | [Encode a string as application/x-www-form-urlencoded][ex-urlencoded] | [![url-badge]][url] | [![cat-encoding-badge]][cat-encoding] |
 | [Encode and decode hex][ex-hex-encode-decode] | [![data-encoding-badge]][data-encoding] | [![cat-encoding-badge]][cat-encoding] |
 | [Encode and decode base64][ex-base64] | [![base64-badge]][base64] | [![cat-encoding-badge]][cat-encoding] |
+| [Filter csv records matching a predicate][ex-filter-csv-records] | [![csv-badge]][csv] | [![cat-encoding-badge]][cat-encoding] |
 
 [ex-json-value]: #ex-json-value
 <a name="ex-json-value"></a>
@@ -344,6 +345,52 @@ fn run() -> Result<()> {
 # quick_main!(run);
 ```
 
+[ex-filter-csv-records]: #ex-filter-csv-records
+<a name="ex-filter-csv-records"></a>
+## Filter csv records matching a predicate
+
+[![csv-badge]][csv] [![cat-encoding-badge]][cat-encoding]
+
+```rust
+# #[macro_use]
+# extern crate error_chain;
+extern crate csv;
+
+use std::env;
+use std::io;
+#
+# error_chain!{}
+
+fn run() -> Result<()> {
+    let query = match env::args().nth(1) {
+        None => bail!("expected 1 argument, but got none"),
+        Some(query) => query,
+    };
+
+    let mut rdr = csv::Reader::from_reader(io::stdin());
+    let mut wtr = csv::Writer::from_writer(io::stdout());
+
+    wtr.write_record(
+        rdr.headers().chain_err(|| "cannot read headers")?
+    ).chain_err(|| "cannot write headers")?;
+
+    for result in rdr.records() {
+        let record = result
+            .chain_err(|| "something went wrong reading records")?;
+        if record.iter().any(|field| field == &query) {
+            wtr.write_record(&record)
+                .chain_err(|| "something went wrong writing record")?;
+        }
+    }
+
+    wtr.flush()
+        .chain_err(|| "error 'flushing' csv-writer's buffer")?;
+    Ok(())
+}
+#
+# quick_main!(run);
+```
+
 <!-- Categories -->
 
 [cat-encoding-badge]: https://badge-cache.kominick.com/badge/encoding--x.svg?style=social
@@ -361,6 +408,8 @@ fn run() -> Result<()> {
 [toml]: https://docs.rs/toml/
 [url-badge]: https://badge-cache.kominick.com/crates/v/url.svg?label=url
 [url]: https://docs.rs/url/
+[csv]: https://docs.rs/csv/
+[csv-badge]: https://badge-cache.kominick.com/crates/v/csv.svg?label=csv
 
 
 

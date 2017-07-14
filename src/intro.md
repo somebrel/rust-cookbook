@@ -42,6 +42,7 @@ community. It needs and welcomes help. For details see
 | [Encode a string as application/x-www-form-urlencoded][ex-urlencoded] | [![url-badge]][url] | [![cat-encoding-badge]][cat-encoding] |
 | [Encode and decode hex][ex-hex-encode-decode] | [![data-encoding-badge]][data-encoding] | [![cat-encoding-badge]][cat-encoding] |
 | [Encode and decode base64][ex-base64] | [![base64-badge]][base64] | [![cat-encoding-badge]][cat-encoding] |
+| [Filter csv records matching a predicate][ex-filter-csv-records] | [![csv-badge]][csv] | [![cat-encoding-badge]][cat-encoding] |
 
 ## [Concurrency](concurrency.html)
 
@@ -150,6 +151,8 @@ Keep lines sorted.
 [chrono]: https://docs.rs/chrono/
 [clap-badge]: https://badge-cache.kominick.com/crates/v/clap.svg?label=clap
 [clap]: https://docs.rs/clap/
+[csv]: https://docs.rs/csv/
+[csv-badge]: https://badge-cache.kominick.com/crates/v/csv.svg?label=csv
 [crossbeam-badge]: https://badge-cache.kominick.com/crates/v/crossbeam.svg?label=crossbeam
 [crossbeam]: https://docs.rs/crossbeam/
 [data-encoding-badge]: https://badge-cache.kominick.com/crates/v/data-encoding.svg?label=data-encoding
@@ -220,6 +223,7 @@ Keep lines sorted.
 [ex-file-predicate]: app.html#ex-file-predicate
 [ex-file-skip-dot]: app.html#ex-file-skip-dot
 [ex-file-sizes]: app.html#ex-file-sizes
+[ex-filter-csv-records]: encoding.html#ex-filter-csv-records
 [ex-global-mut-state]: basics.html#ex-global-mut-state
 [ex-glob-recursive]: app.html#ex-glob-recursive
 [ex-glob-with]: app.html#ex-glob-with
